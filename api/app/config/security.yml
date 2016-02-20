@@ -15,12 +15,6 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-        api_anonymous:
-            pattern: ^/v(\d+)/servers(/\d*)?$
-            methods: [GET]
-            stateless: true
-            anonymous: true
-
         login:
             pattern:  ^/login
             stateless: true
@@ -31,11 +25,6 @@ security:
                 success_handler:          lexik_jwt_authentication.handler.authentication_success
                 failure_handler:          lexik_jwt_authentication.handler.authentication_failure
                 require_previous_session: false
-
-        refresh:
-            pattern:  ^/token/refresh
-            stateless: true
-            anonymous: true
 
         api:
             pattern:   ^/
