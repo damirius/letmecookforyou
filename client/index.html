@@ -4,11 +4,17 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
-    <title>Let Me Cook For You</title>
+    <title data-ng-bind="$title + ' | Let Me Cook For You'"></title>
 </head>
 <body>
+    <div data-ui-view></div>
 
     <script src="app/components/angular/angular.js"></script>
+    <script src="app/components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="app/components/angular-ui-router-title/angular-ui-router-title.js"></script>
+
     <script src="app/app.module.js"></script>
+    <script src="app/dashboard/dashboard.module.js"></script>
+    <script src="app/dashboard/dashboard.js"></script>
 </body>
 </html>
