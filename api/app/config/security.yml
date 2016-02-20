@@ -1,24 +1,43 @@
 # To get started with security, check out the documentation:
 # http://symfony.com/doc/current/book/security.html
 security:
+    encoders:
+        FOS\UserBundle\Model\UserInterface:
+            algorithm: bcrypt
+            cost: 15
 
-    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory:
-            memory: ~
+        fos_userbundle:
+            id: fos_user.user_provider.username
 
     firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-        main:
-            anonymous: ~
-            # activate different ways to authenticate
+        api_anonymous:
+            pattern: ^/v(\d+)/servers(/\d*)?$
+            methods: [GET]
+            stateless: true
+            anonymous: true
 
-            # http_basic: ~
-            # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
+        login:
+            pattern:  ^/login
+            stateless: true
+            anonymous: true
+            form_login:
+                provider: fos_userbundle
+                check_path:               /login
+                success_handler:          lexik_jwt_authentication.handler.authentication_success
+                failure_handler:          lexik_jwt_authentication.handler.authentication_failure
+                require_previous_session: false
 
-            # form_login: ~
-            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+        refresh:
+            pattern:  ^/token/refresh
+            stateless: true
+            anonymous: true
+
+        api:
+            pattern:   ^/
+            stateless: true
+            lexik_jwt: ~
