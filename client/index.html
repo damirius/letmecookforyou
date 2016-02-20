@@ -6,20 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
     <title data-ng-bind="$title + ' | Let Me Cook For You'"></title>
 
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="app/components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="app/components/bootstrap/dist/css/bootstrap-theme.css">
     <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
     <div data-ui-view></div>
 
 
+    <script src="app/components/jquery/dist/jquery.js"></script>
+    <script src="app/components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="app/components/angular/angular.js"></script>
     <script src="app/components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="app/components/angular-ui-router-title/angular-ui-router-title.js"></script>
-    <script src="assets/js/jquery-1.12.0.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
 
     <script src="app/app.module.js"></script>
+    <script src="app/core/core.module.js"></script>
+    <script src="app/core/config.js"></script>
     <script src="app/dashboard/dashboard.module.js"></script>
     <script src="app/dashboard/dashboard.js"></script>
 </body>

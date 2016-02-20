@@ -5,6 +5,7 @@
         'ui.router',
         'ui.router.title',
 
+        'app.core',
         'app.dashboard'
     ]);
 
