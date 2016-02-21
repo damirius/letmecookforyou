@@ -56,7 +56,7 @@ class EventApplication
      * @ORM\Column(type="boolean")
      * @Serializer\Groups({"details"})
      */
-    protected $hostConfirmed;
+    protected $hostConfirmed = false;
 
     /**
      * @var boolean
@@ -64,7 +64,7 @@ class EventApplication
      * @ORM\Column(type="boolean")
      * @Serializer\Groups({"details"})
      */
-    protected $guestConfirmed;
+    protected $guestConfirmed = false;
 
     public function __construct()
     {
