@@ -1,0 +1,11 @@
+<form class="form-inline" data-ng-if="!vm.isLoggedIn()">
+    <div class="form-group">
+        <label class="sr-only" for="username">Username</label>
+        <input ng-model="vm.username" type="text" class="form-control" id="username" placeholder="Enter username">
+    </div>
+    <div class="form-group">
+        <label class="sr-only" for="password">Password</label>
+        <input ng-model="vm.password" type="password" class="form-control" id="password" placeholder="Password">
+    </div>
+    <button ng-click="vm.login()" type="submit" class="btn btn-primary">Sign In</button>
+</form>

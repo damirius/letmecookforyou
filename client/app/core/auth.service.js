@@ -19,7 +19,7 @@
         _password: password || ''
       }
 
-      return Restangular.oneUrl('apiToken', '/api/login').post(params).then(function (data) {
+      return Restangular.oneUrl('apiToken', '/api/login').post(null, params).then(function (data) {
         $localStorage.authToken = data.token;
       });
     };

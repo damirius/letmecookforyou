@@ -5,7 +5,7 @@
     .module('app.event')
     .controller('Event', Event);
 
-  Dashboard.$inject = ['$rootScope','$stateParams','AuthRestangular'];
+  Event.$inject = ['$rootScope','$stateParams','AuthRestangular'];
 
   function Event($rootScope, $stateParams, AuthRestangular) {
 

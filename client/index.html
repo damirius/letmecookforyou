@@ -11,24 +11,7 @@
     <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
-    <navbar>
-        <form class="form-inline" data-ng-if="auth.isLoggedIn">
-        <div class="form-group">
-            <label class="sr-only" for="exampleInputEmail3">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail3" placeholder="Enter email">
-        </div>
-        <div class="form-group">
-            <label class="sr-only" for="exampleInputPassword3">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword3" placeholder="Password">
-        </div>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox"> Remember me
-            </label>
-        </div>
-        <button type="submit" class="btn btn-primary">Sign in</button>
-    </form>
-    </navbar>
+    <navbar></navbar>
     <div data-ui-view></div>
 
 
@@ -46,9 +29,11 @@
     <script src="app/core/core.module.js"></script>
     <script src="app/core/config.js"></script>
     <script src="app/core/auth.service.js"></script>
+    <script src="app/navbar/navbar.module.js"></script>
+    <script src="app/navbar/navbar.directive.js"></script>
     <script src="app/dashboard/dashboard.module.js"></script>
     <script src="app/dashboard/dashboard.js"></script>
-    <script src="app/dashboard/event.module.js"></script>
-    <script src="app/dashboard/event.js"></script>
+    <script src="app/event/event.module.js"></script>
+    <script src="app/event/event.js"></script>
 </body>
 </html>

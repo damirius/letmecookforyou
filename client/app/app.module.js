@@ -8,6 +8,7 @@
         'ngStorage',
 
         'app.core',
+        'app.navbar',
         'app.dashboard'
     ]);
 
