@@ -98,6 +98,14 @@ class Event
     protected $tags;
 
     /**
+     * @var EventPicture[]
+     *
+     * @ORM\OneToMany(targetEntity="EventPicture", mappedBy="event")
+     * @Serializer\Groups({"details"})
+     */
+    protected $gallery;
+
+    /**
      * @var float
      *
      * @ORM\Column(type="decimal", nullable=true)
@@ -479,4 +487,40 @@ class Event
     }
 
 
+
+    /**
+     * Add gallery
+     *
+     * @param EventPicture $gallery
+     *
+     * @return Event
+     */
+    public function addGallery(EventPicture $gallery)
+    {
+        $this->gallery[] = $gallery;
+
+        return $this;
+    }
+
+    /**
+     * Remove gallery
+     *
+     * @param EventPicture $gallery
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeGallery(EventPicture $gallery)
+    {
+        return $this->gallery->removeElement($gallery);
+    }
+
+    /**
+     * Get gallery
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getGallery()
+    {
+        return $this->gallery;
+    }
 }

@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Country;
 use AppBundle\Entity\Event;
 use AppBundle\Entity\EventApplication;
+use AppBundle\Entity\EventPicture;
 use AppBundle\Entity\Tag;
 use AppBundle\Entity\User;
 use AppBundle\Location\LocationSearchParameters;
@@ -13,6 +14,8 @@ use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\View\View;
 use JMS\Serializer\SerializationContext;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use Ramsey\Uuid\Uuid;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -314,4 +317,58 @@ class EventController extends FOSRestController
 
         return $view;
     }
+
+
+    /**
+     * @param Request $request
+     * @param $event_id
+     * @return View
+     * @Rest\Post("/events/{event_id}/gallery.{_format}")
+     */
+    public function addEventPictureAction(Request $request, $event_id)
+    {
+        $view = $this->view();
+
+        $filesystem = $this->get('knp_gaufrette.filesystem_map')->get('event_pictures');
+        $content = $request->getContent();
+
+        $user = $this->getUser();
+
+        if (filter_var($event_id, FILTER_VALIDATE_INT) !== false and $user instanceof User) {
+            $event = $this->getDoctrine()->getRepository('AppBundle:Event')->find($event_id);
+
+            if ($event) {
+                if ($event->getHost() == $user) {
+                    $file = tmpfile();
+                    $path = stream_get_meta_data($file)['uri'];
+                    file_put_contents($path, $content);
+                    $uploadedFile = new UploadedFile($path, $path, null, null, null, true);
+
+                    $uuid = Uuid::uuid4()->toString();
+                    $ext = $uploadedFile->guessExtension();
+                    $filename = "{$uuid}.{$ext}";
+
+                    if ($filesystem->write($filename, $content) > 0) {
+                        $picture = new EventPicture();
+                        $picture->setEvent($event);
+                        $picture->setName($filename);
+                        $this->getDoctrine()->getManager()->persist($picture);
+                        $this->getDoctrine()->getManager()->flush();
+                    }
+
+                    $view->setStatusCode(Response::HTTP_CREATED)
+                        ->setHeader('Location', "/api/uploads/event/{$filename}");
+                } else {
+                    $view->setStatusCode(Response::HTTP_FORBIDDEN);
+                }
+            } else {
+                $view->setStatusCode(Response::HTTP_NOT_FOUND);
+            }
+        } else {
+            $view->setStatusCode(Response::HTTP_FORBIDDEN);
+        }
+
+        return $view;
+    }
+
 }
