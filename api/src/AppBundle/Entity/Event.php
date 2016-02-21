@@ -93,7 +93,7 @@ class Event
      * @var Tag[]
      *
      * @ORM\ManyToMany(targetEntity="Tag", inversedBy="events")
-     * @Serializer\Groups({"details"})
+     * @Serializer\Groups({"list", "details"})
      */
     protected $tags;
 

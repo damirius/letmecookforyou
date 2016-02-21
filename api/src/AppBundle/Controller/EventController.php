@@ -106,7 +106,7 @@ class EventController extends FOSRestController
 
             $tagNames = $request->request->get('tags');
             foreach ($tagNames as $tagName) {
-                $tag = $em->getRepository('AppBundle:Tag')->findBy([
+                $tag = $em->getRepository('AppBundle:Tag')->findOneBy([
                    'name' => $tagName
                 ]);
                 if (!($tag instanceof Tag)) {
@@ -117,13 +117,27 @@ class EventController extends FOSRestController
                 $event->addTag($tag);
             }
 
+            $geolocationApi = $this->get('google_geolocation.geolocation_api');
+            $location = $geolocationApi->locateAddress($city . ', ' . $country->getName());
+
+            if ($location->getMatches() > 0)
+            {
+                $coordinates = $location->getLatLng(0);
+                $event->setLatitude($coordinates['lat']);
+                $event->setLongitude($coordinates['lng']);
+            } else {
+                $errors []= 'Location not found.';
+            }
+
             if (count($errors) > 0) {
                 $view->setData($errors)->setStatusCode(Response::HTTP_BAD_REQUEST);
             }
             try {
                 $em->persist($event);
                 $em->flush();
+                $view->setStatusCode(Response::HTTP_CREATED);
             } catch (\Exception $e) {
+                $view->setData($e->getMessage());
                 $view->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
             }
         }
@@ -182,7 +196,7 @@ class EventController extends FOSRestController
 
         $user = $this->getUser();
 
-        if ($user instanceof User and filter_var($event_id, FILTER_VALIDATE_INT) !== false) {
+        if (filter_var($event_id, FILTER_VALIDATE_INT) !== false) {
             $event = $this->getDoctrine()->getRepository('AppBundle:Event')->find($event_id);
 
             if ($event instanceof Event) {

@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new FOS\RestBundle\FOSRestBundle(),
             new Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle(),
             new Knp\Bundle\GaufretteBundle\KnpGaufretteBundle(),
+            new Google\GeolocationBundle\GoogleGeolocationBundle(),
             new AppBundle\AppBundle(),
         ];
 
