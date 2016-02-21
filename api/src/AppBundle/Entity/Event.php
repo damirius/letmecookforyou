@@ -120,6 +120,13 @@ class Event
     protected $whoPays;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime")
+     */
+    protected $when;
+
+    /**
      * @var EventApplication[]
      *
      * @ORM\OneToMany(targetEntity="EventApplication", mappedBy="event")
@@ -450,4 +457,25 @@ class Event
     {
         return $this->applications;
     }
+
+    /**
+     * @return \DateTime
+     */
+    public function getWhen()
+    {
+        return $this->when;
+    }
+
+    /**
+     * @param \DateTime $when
+     * @return $this
+     */
+    public function setWhen($when)
+    {
+        $this->when = $when;
+
+        return $this;
+    }
+
+
 }
