@@ -16,7 +16,7 @@ security:
             security: false
 
         api_anonymous:
-            pattern: ^/events(/\d+)?$
+            pattern: ^/events(/\d+|/search)?$
             methods: [GET]
             stateless: true
             anonymous: true
