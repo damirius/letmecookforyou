@@ -43,6 +43,8 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface
         $user->setPlainPassword("admin");
         $user->setEnabled(true);
         $user->setSuperAdmin(true);
+        $user->setLatitude(44.8637);
+        $user->setLongitude(20.6593);
 
         $userManager->updateUser($user);
 
@@ -52,6 +54,8 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface
         $user->setEmail("demo@localhost");
         $user->setPlainPassword("demo");
         $user->setEnabled(true);
+        $user->setLatitude(41.8781);
+        $user->setLongitude(-87.6298);
 
         $userManager->updateUser($user);
     }

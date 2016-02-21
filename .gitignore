@@ -2,6 +2,7 @@
 /api/build/
 /api/phpunit.xml
 /api/var/*
+/atlassian-ide-plugin.xml
 !/api/var/cache
 /api/var/cache/*
 !api/var/cache/.gitkeep
@@ -20,3 +21,7 @@
 !api/web/uploads/event/.gitkeep
 /api/web/uploads/profile
 !api/web/uploads/profile/.gitkeep
+/api/var/SymfonyRequirements.php
+/api/web/config.php
+/api/bin/symfony_requirements
+/api/composer.lock
