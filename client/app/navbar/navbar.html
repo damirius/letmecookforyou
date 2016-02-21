@@ -1,11 +1,26 @@
-<form class="form-inline" data-ng-if="!vm.isLoggedIn()">
-    <div class="form-group">
-        <label class="sr-only" for="username">Username</label>
-        <input ng-model="vm.username" type="text" class="form-control" id="username" placeholder="Enter username">
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Let Me Cook For You
+            </a>
+            <form class="form-inline" data-ng-if="!vm.isLoggedIn()">
+                <div class="form-group">
+                    <label class="sr-only" for="username">Username</label>
+                    <input ng-model="vm.username" type="text" class="form-control" id="username" placeholder="Enter username">
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="password">Password</label>
+                    <input ng-model="vm.password" type="password" class="form-control" id="password" placeholder="Password">
+                </div>
+                <button ng-click="vm.login()" type="submit" class="btn btn-primary">Sign In</button>
+            </form>
+            <form class="form-inline" data-ng-if="vm.isLoggedIn()">
+                <p class="navbar-text navbar-left">Welcome, <a href="#" class="navbar-link">{{ vm.user.username + "!" }}</a></p><!--
+                <p navbar-left><b>Search:</b></p>
+                <div class="col-xs-2">
+                    <input type="text" class="form-control" placeholder=".col-xs-2">
+                </div>-->
+            </form>
+        </div>
     </div>
-    <div class="form-group">
-        <label class="sr-only" for="password">Password</label>
-        <input ng-model="vm.password" type="password" class="form-control" id="password" placeholder="Password">
-    </div>
-    <button ng-click="vm.login()" type="submit" class="btn btn-primary">Sign In</button>
-</form>
+</nav>
