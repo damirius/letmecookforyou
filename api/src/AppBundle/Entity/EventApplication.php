@@ -39,6 +39,7 @@ class EventApplication
      * @var User
      *
      * @ORM\ManyToOne(targetEntity="User", inversedBy="eventsAttending")
+     * @Serializer\Groups({"list", "details"})
      */
     protected $applicant;
 
@@ -46,7 +47,6 @@ class EventApplication
      * @var Message[]
      *
      * @ORM\OneToMany(targetEntity="Message", mappedBy="eventApplication")
-     * @Serializer\Groups({"list", "details"})
      */
     protected $messages;
 
@@ -69,5 +69,145 @@ class EventApplication
     public function __construct()
     {
         $this->messages = new ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set hostConfirmed
+     *
+     * @param boolean $hostConfirmed
+     *
+     * @return EventApplication
+     */
+    public function setHostConfirmed($hostConfirmed)
+    {
+        $this->hostConfirmed = $hostConfirmed;
+
+        return $this;
+    }
+
+    /**
+     * Get hostConfirmed
+     *
+     * @return boolean
+     */
+    public function getHostConfirmed()
+    {
+        return $this->hostConfirmed;
+    }
+
+    /**
+     * Set guestConfirmed
+     *
+     * @param boolean $guestConfirmed
+     *
+     * @return EventApplication
+     */
+    public function setGuestConfirmed($guestConfirmed)
+    {
+        $this->guestConfirmed = $guestConfirmed;
+
+        return $this;
+    }
+
+    /**
+     * Get guestConfirmed
+     *
+     * @return boolean
+     */
+    public function getGuestConfirmed()
+    {
+        return $this->guestConfirmed;
+    }
+
+    /**
+     * Set event
+     *
+     * @param Event $event
+     *
+     * @return EventApplication
+     */
+    public function setEvent(Event $event = null)
+    {
+        $this->event = $event;
+
+        return $this;
+    }
+
+    /**
+     * Get event
+     *
+     * @return Event
+     */
+    public function getEvent()
+    {
+        return $this->event;
+    }
+
+    /**
+     * Set applicant
+     *
+     * @param User $applicant
+     *
+     * @return EventApplication
+     */
+    public function setApplicant(User $applicant = null)
+    {
+        $this->applicant = $applicant;
+
+        return $this;
+    }
+
+    /**
+     * Get applicant
+     *
+     * @return User
+     */
+    public function getApplicant()
+    {
+        return $this->applicant;
+    }
+
+    /**
+     * Add message
+     *
+     * @param Message $message
+     *
+     * @return EventApplication
+     */
+    public function addMessage(Message $message)
+    {
+        $this->messages[] = $message;
+
+        return $this;
+    }
+
+    /**
+     * Remove message
+     *
+     * @param Message $message
+     */
+    public function removeMessage(Message $message)
+    {
+        $this->messages->removeElement($message);
+    }
+
+    /**
+     * Get messages
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMessages()
+    {
+        return $this->messages;
     }
 }

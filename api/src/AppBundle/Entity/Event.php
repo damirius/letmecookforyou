@@ -123,7 +123,7 @@ class Event
      * @var EventApplication[]
      *
      * @ORM\OneToMany(targetEntity="EventApplication", mappedBy="event")
-     * @Serializer\Groups({"details"})
+     * @Serializer\Groups({"owner"})
      */
     protected $applications;
 
@@ -132,5 +132,322 @@ class Event
         $this->applications = new ArrayCollection();
         $this->tags = new ArrayCollection();
     }
+    
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
+    /**
+     * Set city
+     *
+     * @param string $city
+     *
+     * @return Event
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * Get city
+     *
+     * @return string
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * Set mealName
+     *
+     * @param string $mealName
+     *
+     * @return Event
+     */
+    public function setMealName($mealName)
+    {
+        $this->mealName = $mealName;
+
+        return $this;
+    }
+
+    /**
+     * Get mealName
+     *
+     * @return string
+     */
+    public function getMealName()
+    {
+        return $this->mealName;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return Event
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set latitude
+     *
+     * @param float $latitude
+     *
+     * @return Event
+     */
+    public function setLatitude($latitude)
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    /**
+     * Get latitude
+     *
+     * @return float
+     */
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
+
+    /**
+     * Set longitude
+     *
+     * @param float $longitude
+     *
+     * @return Event
+     */
+    public function setLongitude($longitude)
+    {
+        $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    /**
+     * Get longitude
+     *
+     * @return float
+     */
+    public function getLongitude()
+    {
+        return $this->longitude;
+    }
+
+    /**
+     * Set costEstimate
+     *
+     * @param string $costEstimate
+     *
+     * @return Event
+     */
+    public function setCostEstimate($costEstimate)
+    {
+        $this->costEstimate = $costEstimate;
+
+        return $this;
+    }
+
+    /**
+     * Get costEstimate
+     *
+     * @return string
+     */
+    public function getCostEstimate()
+    {
+        return $this->costEstimate;
+    }
+
+    /**
+     * Set whosePlace
+     *
+     * @param integer $whosePlace
+     *
+     * @return Event
+     */
+    public function setWhosePlace($whosePlace)
+    {
+        $this->whosePlace = $whosePlace;
+
+        return $this;
+    }
+
+    /**
+     * Get whosePlace
+     *
+     * @return integer
+     */
+    public function getWhosePlace()
+    {
+        return $this->whosePlace;
+    }
+
+    /**
+     * Set whoPays
+     *
+     * @param integer $whoPays
+     *
+     * @return Event
+     */
+    public function setWhoPays($whoPays)
+    {
+        $this->whoPays = $whoPays;
+
+        return $this;
+    }
+
+    /**
+     * Get whoPays
+     *
+     * @return integer
+     */
+    public function getWhoPays()
+    {
+        return $this->whoPays;
+    }
+
+    /**
+     * Set host
+     *
+     * @param User $host
+     *
+     * @return Event
+     */
+    public function setHost(User $host = null)
+    {
+        $this->host = $host;
+
+        return $this;
+    }
+
+    /**
+     * Get host
+     *
+     * @return User
+     */
+    public function getHost()
+    {
+        return $this->host;
+    }
+
+    /**
+     * Set country
+     *
+     * @param Country $country
+     *
+     * @return Event
+     */
+    public function setCountry(Country $country = null)
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    /**
+     * Get country
+     *
+     * @return Country
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * Add tag
+     *
+     * @param Tag $tag
+     *
+     * @return Event
+     */
+    public function addTag(Tag $tag)
+    {
+        $this->tags[] = $tag;
+
+        return $this;
+    }
+
+    /**
+     * Remove tag
+     *
+     * @param Tag $tag
+     */
+    public function removeTag(Tag $tag)
+    {
+        $this->tags->removeElement($tag);
+    }
+
+    /**
+     * Get tags
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * Add application
+     *
+     * @param EventApplication $application
+     *
+     * @return Event
+     */
+    public function addApplication(EventApplication $application)
+    {
+        $this->applications[] = $application;
+
+        return $this;
+    }
+
+    /**
+     * Remove application
+     *
+     * @param EventApplication $application
+     */
+    public function removeApplication(EventApplication $application)
+    {
+        $this->applications->removeElement($application);
+    }
+
+    /**
+     * Get applications
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getApplications()
+    {
+        return $this->applications;
+    }
 }
