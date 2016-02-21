@@ -105,3 +105,19 @@ jms_serializer:
     metadata:
         directories:
             - { path: %kernel.root_dir%/Resources/FOSUserBundle/serializer, namespace_prefix: 'FOS\UserBundle' }
+
+knp_gaufrette:
+    adapters:
+        event_pictures:
+            local:
+                directory: %kernel.root_dir%/../web/uploada/event
+        profile_pictures:
+            local:
+                directory: %kernel.root_dir%/../web/uploada/profile
+    filesystems:
+        event_pictures:
+            adapter:    event_pictures
+            alias:      event_pictures_filesystem
+        profile_pictures:
+            adapter:    profile_pictures
+            alias:      profile_pictures_filesystem

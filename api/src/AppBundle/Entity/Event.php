@@ -15,6 +15,14 @@ use JMS\Serializer\Annotation as Serializer;
  */
 class Event
 {
+    const PLACE_HOST = 1;
+    const PLACE_GUEST = 2;
+    const PLACE_OTHER = 3;
+
+    const PAYS_HOST = 1;
+    const PAYS_GUEST = 2;
+    const PAYS_BOTH = 3;
+    
     use TimestampableEntity;
 
     /**
@@ -98,11 +106,18 @@ class Event
     protected $costEstimate;
 
     /**
-     * @var boolean
+     * @var int
      *
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="integer")
      */
     protected $whosePlace;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
+    protected $whoPays;
 
     /**
      * @var EventApplication[]

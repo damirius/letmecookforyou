@@ -16,3 +16,7 @@
 /api/web/bundles/
 /client/app/components
 /.idea/
+/api/web/uploads/event
+!api/web/uploads/event/.gitkeep
+/api/web/uploads/profile
+!api/web/uploads/profile/.gitkeep
