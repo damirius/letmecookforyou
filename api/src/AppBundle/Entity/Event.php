@@ -123,6 +123,7 @@ class Event
      * @var \DateTime
      *
      * @ORM\Column(type="datetime")
+     * @Serializer\Groups({"list", "details"})
      */
     protected $when;
 
