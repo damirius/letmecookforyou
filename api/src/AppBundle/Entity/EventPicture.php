@@ -2,9 +2,9 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 use JMS\Serializer\Annotation as Serializer;
 
 /**
@@ -12,8 +12,10 @@ use JMS\Serializer\Annotation as Serializer;
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Event")
  */
-class Tag
+class EventPicture
 {
+    use TimestampableEntity;
+
     /**
      * @var int
      *
@@ -33,16 +35,11 @@ class Tag
     protected $name;
 
     /**
-     * @var Event[]
+     * @var Event
      *
-     * @ORM\ManyToMany(targetEntity="Event", mappedBy="tags")
+     * @ORM\ManyToOne(targetEntity="Event", inversedBy="gallery")
      */
-    protected $events;
-
-    public function __construct()
-    {
-        $this->events = new ArrayCollection();
-    }
+    protected $event;
 
     /**
      * Get id
@@ -79,36 +76,26 @@ class Tag
     }
 
     /**
-     * Add event
+     * Set event
      *
      * @param Event $event
      *
-     * @return Tag
+     * @return EventPicture
      */
-    public function addEvent(Event $event)
+    public function setEvent(Event $event = null)
     {
-        $this->events[] = $event;
+        $this->event = $event;
 
         return $this;
     }
 
     /**
-     * Remove event
+     * Get event
      *
-     * @param Event $event
+     * @return Event
      */
-    public function removeEvent(Event $event)
+    public function getEvent()
     {
-        $this->events->removeElement($event);
-    }
-
-    /**
-     * Get events
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getEvents()
-    {
-        return $this->events;
+        return $this->event;
     }
 }
