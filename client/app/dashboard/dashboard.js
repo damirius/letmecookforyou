@@ -14,6 +14,7 @@
 
         vm.events = [];
         AuthRestangular.all('events').getList().then(function (events) {
+
             vm.events = events;
         })
     }

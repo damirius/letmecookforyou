@@ -71,7 +71,7 @@ class Event
      * @var string
      *
      * @ORM\Column(type="text")
-     * @Serializer\Groups({"details"})
+     * @Serializer\Groups({"list","details"})
      */
     protected $description;
 
