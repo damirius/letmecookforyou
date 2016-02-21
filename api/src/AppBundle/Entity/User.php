@@ -75,6 +75,14 @@ class User extends BaseUser
      */
     protected $longitude;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Serializer\Groups({"list", "details"})
+     */
+    private $profilePicture;
+
     public function __construct()
     {
         parent::__construct();
@@ -245,4 +253,25 @@ class User extends BaseUser
     {
         return $this->longitude;
     }
+
+    /**
+     * @return string
+     */
+    public function getProfilePicture()
+    {
+        return $this->profilePicture;
+    }
+
+    /**
+     * @param string $profilePicture
+     * @return $this
+     */
+    public function setProfilePicture($profilePicture)
+    {
+        $this->profilePicture = $profilePicture;
+
+        return $this;
+    }
+
+
 }

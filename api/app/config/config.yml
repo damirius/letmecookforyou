@@ -110,10 +110,10 @@ knp_gaufrette:
     adapters:
         event_pictures:
             local:
-                directory: %kernel.root_dir%/../web/uploada/event
+                directory: %kernel.root_dir%/../web/uploads/event
         profile_pictures:
             local:
-                directory: %kernel.root_dir%/../web/uploada/profile
+                directory: %kernel.root_dir%/../web/uploads/profile
     filesystems:
         event_pictures:
             adapter:    event_pictures

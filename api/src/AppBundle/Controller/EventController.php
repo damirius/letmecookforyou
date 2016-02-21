@@ -132,6 +132,14 @@ class EventController extends FOSRestController
                 $errors []= 'You must enter description of the event.';
             }
 
+            $when = $request->request->get('when');
+            if ($when) {
+                $when = new \DateTime($when);
+                $event->setWhen($when);
+            } else {
+                $errors []= 'You must enter date and time of the event.';
+            }
+
             $whosePlace = $request->request->getInt('whose_place');
             if ($whosePlace == Event::PLACE_GUEST or $whosePlace == Event::PLACE_HOST or $whosePlace == Event::PLACE_OTHER) {
                 $event->setWhosePlace($whosePlace);
