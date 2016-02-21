@@ -7,6 +7,7 @@ use AppBundle\Entity\Event;
 use AppBundle\Entity\EventApplication;
 use AppBundle\Entity\Tag;
 use AppBundle\Entity\User;
+use AppBundle\Location\LocationSearchParameters;
 use Doctrine\Common\Persistence\ObjectManager;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\View\View;
@@ -31,6 +32,47 @@ class EventController extends FOSRestController
         $limit = $request->query->getInt('limit', 10);
 
         $events = $this->getDoctrine()->getRepository('AppBundle:Event')->findBy([], ['createdAt' => 'DESC'], $limit, $offset);
+
+        $view->setData($events);
+
+        return $view;
+    }
+
+    /**
+     * @param Request $request
+     * @return View
+     * @Rest\Get("/events/search.{_format}")
+     */
+    public function searchEventsAction(Request $request)
+    {
+        $view = $this->view()->setSerializationContext(SerializationContext::create()->setGroups(['list']));
+
+        $offset = $request->query->getInt('offset', 0);
+        $limit = $request->query->getInt('limit', 10);
+        $whoPays = $request->query->getInt('who_pays', null);
+        $whosePlace = $request->query->getInt('whose_place', null);
+        $tags = $request->query->get('tags', null);
+        if ($tags) {
+            $tags = explode(',', $tags);
+        }
+
+        $geolocationApi = $this->get('google_geolocation.geolocation_api');
+        $location = $geolocationApi->locateAddress($request->query->get('location'));
+
+        if ($location->getMatches() > 0)
+        {
+            $coordinates = $location->getLatLng(0);
+
+            $locationParams = new LocationSearchParameters();
+            $locationParams->setLatitude($coordinates['lat']);
+            $locationParams->setLongitude($coordinates['lng']);
+            $locationParams->setRadius($request->query->get('radius', 100));
+            $locationParams->setUnit($request->query->get('unit') == 'miles' ? LocationSearchParameters::UNIT_MILE : LocationSearchParameters::UNIT_KM);
+            $events = $this->getDoctrine()->getRepository('AppBundle:Event')->searchWithLocation($locationParams, $tags, $whoPays, $whosePlace, $limit, $offset);
+        } else {
+            $events = $this->getDoctrine()->getRepository('AppBundle:Event')->search($tags, $whoPays, $whosePlace, $limit, $offset);
+        }
+
 
         $view->setData($events);
 
@@ -264,5 +306,4 @@ class EventController extends FOSRestController
 
         return $view;
     }
-
 }
