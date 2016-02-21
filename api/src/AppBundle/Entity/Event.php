@@ -100,10 +100,10 @@ class Event
     /**
      * @var float
      *
-     * @ORM\Column(type="decimal")
+     * @ORM\Column(type="decimal", nullable=true)
      * @Serializer\Groups({"details"})
      */
-    protected $costEstimate;
+    protected $costEstimate = null;
 
     /**
      * @var int

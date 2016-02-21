@@ -1,6 +1,6 @@
 <?php
 
-namespace Irenicus\MinecraftWorldBundle\DataFixtures\ORM;
+namespace AppBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
