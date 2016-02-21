@@ -11,5 +11,10 @@
 
         /*jshint validthis: true */
         var vm = this;
+
+        vm.events = [];
+        Restangular.getList('events').then(function (events) {
+            vm.events = events;
+        })
     }
 })();

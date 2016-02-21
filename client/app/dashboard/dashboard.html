@@ -1,1 +1,12 @@
-asdassd
+    <div class="col-md-6 col-md-4" data-ng-reapeat="event in vm.events">
+        <div class="thumbnail">
+            <img src="{{ event.thumbnail }}" alt="{{ event.meal_name }}">
+            <div class="caption">
+                <h3>{{ event.meal_name }}</h3>
+                <p>{{ event.description }}</p>
+                <p>
+                    <a href="#" class="button button-success" role="button">GO!</a>
+                </p>
+            </div>
+        </div>
+    </div>
