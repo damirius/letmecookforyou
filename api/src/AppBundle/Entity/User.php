@@ -9,7 +9,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use JMS\Serializer\Annotation as Serializer;
-use Symfony\Component\Validator\Constraints\Country;
 
 /**
  * User
@@ -59,7 +58,7 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      * @Serializer\Groups({"list", "details"})
      */
     protected $city;
