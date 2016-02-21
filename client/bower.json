@@ -6,6 +6,7 @@
     "angular-ui-router-title": "^0.0.4",
     "jquery": "^2.2.0",
     "bootstrap": "^3.3.6",
-    "restangular": "~1.5.2"
+    "restangular": "~1.5.2",
+    "ngstorage": "~0.3.10"
   }
 }

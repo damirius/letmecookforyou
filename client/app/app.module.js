@@ -5,6 +5,7 @@
         'ui.router',
         'ui.router.title',
         'restangular',
+        'ngStorage',
 
         'app.core',
         'app.dashboard'
