@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  angular.module('app.eventadd',[]);
+  angular.module('app.eventadd',['app.event']);
 
   angular.module('app.eventadd').config(function($stateProvider) {
     $stateProvider

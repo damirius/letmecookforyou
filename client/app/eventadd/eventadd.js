@@ -5,9 +5,9 @@
     .module('app.eventadd')
     .controller('EventAdd', EventAdd);
 
-  EventAdd.$inject = ['$rootScope','AuthRestangular'];
+  EventAdd.$inject = ['$rootScope','AuthRestangular', '$state'];
 
-  function EventAdd($rootScope, AuthRestangular) {
+  function EventAdd($rootScope, AuthRestangular, $state) {
 
     /*jshint validthis: true */
     var vm = this;
@@ -33,7 +33,7 @@
         meal_name: vm.meal_name
       };
       AuthRestangular.all('events').post(params).then(function(event){
-          console.log(event);
+          $state.go('event', {eventId: event.id})
         });
     }
     AuthRestangular.all('countries').getList().then(function(countries){

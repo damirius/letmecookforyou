@@ -158,8 +158,9 @@ class EventController extends FOSRestController
                 $errors []= "You must enter at who pays for the event:\n1 - Host\n2 - Guest\n3 - Split bill";
             }
 
-            $tagNames = $request->request->get('tags');
+            $tagNames = explode(',', $request->request->get('tags'));
             foreach ($tagNames as $tagName) {
+                $tagName = trim($tagName);
                 $tag = $em->getRepository('AppBundle:Tag')->findOneBy([
                    'name' => $tagName
                 ]);
@@ -190,6 +191,7 @@ class EventController extends FOSRestController
                 $em->persist($event);
                 $em->flush();
                 $view->setStatusCode(Response::HTTP_CREATED);
+                $view->setData($event);
             } catch (\Exception $e) {
                 $view->setData($e->getMessage());
                 $view->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);

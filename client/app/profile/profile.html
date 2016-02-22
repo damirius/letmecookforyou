@@ -12,9 +12,9 @@
                     <p>
                         <i class="glyphicon glyphicon-envelope"></i>{{vm.user.email}}
                         <br />
-                        <i class="glyphicon glyphicon-gift"></i>June 02, 1988</p>
+                        <i class="glyphicon glyphicon-plus"></i><a href="#" data-ui-sref="eventadd">Add event</a></p>
 
-                    <div id="carousel-user" class="carousel slide" data-ride="carousel">
+                    <div ng-if="vm.event.gallery.length>0" id="carousel-user" class="carousel slide" data-ride="carousel">
                         <!-- Indicators -->
                         <ol class="carousel-indicators">
                             <li data-target="#carousel-user" data-slide-to="0" class="active"></li>
@@ -22,7 +22,7 @@
 
                         <!-- Wrapper for slides -->
                         <div class="carousel-inner" role="listbox">
-                            <div class="item" ng-class="{active: picture.id == 1}" data-ng-repeat="picture in vm.gallery">
+                            <div class="item" ng-class="{active: key == 0}" data-ng-repeat="(key, picture) in vm.gallery">
                                 <img ng-src="/api/uploads/event/{{picture.name}}" alt="...">
                                 <div class="carousel-caption">
                                     ...
