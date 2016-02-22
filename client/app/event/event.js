@@ -17,6 +17,7 @@
         vm.events = [];
         vm.upload = upload;
         vm.submit = submit;
+        vm.attend = attend;
 
         AuthRestangular.one('events', $stateParams.eventId).get().then(function (event) {
 
@@ -29,6 +30,12 @@
             }
         });
 
+
+        function attend() {
+          AuthRestangular.one('events',$stateParams.eventId).post('apply').then(function(application){
+
+          });
+        }
 
         function submit() {
             if ($scope.form.file.$valid && vm.file) {

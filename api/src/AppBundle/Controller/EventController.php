@@ -336,6 +336,9 @@ class EventController extends FOSRestController
                     $application = new EventApplication();
                     $application->setEvent($event);
                     $application->setApplicant($user);
+                    /* Added automatic application confirmation */
+                    $application->setGuestConfirmed(1);
+                    $application->setHostConfirmed(1);
 
                     try {
                         $em->persist($application);

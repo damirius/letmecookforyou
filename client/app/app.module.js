@@ -12,7 +12,8 @@
         'app.navbar',
         'app.dashboard',
         'app.search',
-        'app.profile'
+        'app.profile',
+        'app.eventadd'
     ]);
 
 })();
