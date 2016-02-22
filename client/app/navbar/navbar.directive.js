@@ -17,7 +17,8 @@
             vm.user = User.get();
         }
         vm.isLoggedIn = Auth.isLoggedIn;
-        vm.user = User.get();
+        vm.user = User.get()
+        vm.logout = Auth.logout;
     }
 
     function navbar () {

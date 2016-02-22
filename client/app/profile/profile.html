@@ -23,7 +23,7 @@
                         <!-- Wrapper for slides -->
                         <div class="carousel-inner" role="listbox">
                             <div class="item" ng-class="{active: picture.id == 1}" data-ng-repeat="picture in vm.gallery">
-                                <img src="/api/uploads/event/{{picture.name}}" alt="...">
+                                <img ng-src="/api/uploads/event/{{picture.name}}" alt="...">
                                 <div class="carousel-caption">
                                     ...
                                 </div>
@@ -43,7 +43,8 @@
                 </div>
             </div>
         </div>
-    </div><div class="col-xs-12 col-sm-6 col-md-6">
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6">
     <ul class="event-list">
         <li ng-repeat="event in vm.events">
             <time datetime="{{event.when | date : 'd-MMM-yyy'}}"  data-ui-sref="event({eventId: event.id})">
@@ -66,10 +67,14 @@
     </ul>
     </div>
 </div>
-<form name="form">
-    Single Image with validations
-    <div class="button" ngf-select ng-model="vm.file" name="file" ngf-pattern="'image/*'"
-         ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100"
-         ngf-resize="{width: 100, height: 100}">Select</div>
-    <button type="submit" ng-click="vm.submit()">submit</button>
-</form>
+<div class="col-xs-12 col-sm-6 col-md-6">
+    <form name="form">
+        <button class="btn btn-success" ngf-select ng-model="vm.file" name="file" ngf-pattern="'image/*'"
+                ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100"
+                ngf-resize="{width: 200, height: 200}">Change profile picture</button>
+        <button class="btn btn-info" type="submit" ng-click="vm.submit()">submit</button>
+        <div>
+            <img ngf-thumbnail="vm.file" class="preview-thumb">
+        </div>
+    </form>
+</div>

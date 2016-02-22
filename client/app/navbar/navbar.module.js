@@ -1,5 +1,5 @@
 (function() {
     'use strict';
 
-    angular.module('app.navbar', []);
+    angular.module('app.navbar', ['app.profile']);
 })();

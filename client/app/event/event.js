@@ -17,6 +17,7 @@
         vm.events = [];
         vm.upload = upload;
         vm.submit = submit;
+        vm.isPictureSelected = isPictureSelected;
         vm.attend = attend;
 
         AuthRestangular.one('events', $stateParams.eventId).get().then(function (event) {
@@ -38,11 +39,14 @@
         }
 
         function submit() {
-            if ($scope.form.file.$valid && vm.file) {
+            if (isPictureSelected()) {
                 upload(vm.file);
             }
         };
 
+        function isPictureSelected () {
+            return $scope.form.file && $scope.form.file.$valid && vm.file;
+        }
 
         function upload(file) {
             console.log(file);
