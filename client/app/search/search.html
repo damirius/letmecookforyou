@@ -3,22 +3,21 @@
         <div class="[ col-xs-12 col-sm-offset-2 col-sm-8 ]">
             <ul class="event-list">
                 <li ng-repeat="event in vm.events">
-                    <time datetime="event.createdAt">
-                        <span class="day">4</span>
-                        <span class="month">Jul</span>
-                        <span class="year">2014</span>
-                        <span class="time">ALL DAY</span>
+                    <time datetime="{{event.when | date : 'd-MMM-yyy'}}">
+                        <span class="day">{{event.when | date : 'd'}}</span>
+                        <span class="month">{{event.when | date : 'MMM'}}</span>
+                        <span class="year">{{event.when | date : 'yyyy'}}</span>
+                        <span class="time">{{event.when | date : 'HH'}}</span>
                     </time>
                     <img alt="Independence Day" src="https://farm4.staticflickr.com/3100/2693171833_3545fb852c_q.jpg" />
                     <div class="info">
-                        <h2 class="title">Independence Day</h2>
-                        <p class="desc">United States Holiday</p>
-                    </div>
-                    <div class="social">
+                        <h2 class="title">{{event.meal_name }}</h2>
+                        <p class="desc">{{event.description }}</p>
                         <ul>
-                            <li class="facebook" style="width:33%;"><a href="#facebook"><span class="fa fa-facebook"></span></a></li>
-                            <li class="twitter" style="width:34%;"><a href="#twitter"><span class="fa fa-twitter"></span></a></li>
-                            <li class="google-plus" style="width:33%;"><a href="#google-plus"><span class="fa fa-google-plus"></span></a></li>
+                            <li style="width:25%;"><a href="#website"><span class="fa fa-user"></span> {{event.host.username}}</a></li>
+                            <li style="width:25%;"><span class="fa fa-clock-o"></span> {{event.when | date : 'HH:mm'}}</li>
+                            <li style="width:25%;"><span class="fa fa-map-marker"></span> Near {{ event.city }}</li>
+                            <li style="width:25%;"><span class="fa fa-tags"></span> <span ng-repeat="tag in event.tags">{{tag.name}} </span></li>
                         </ul>
                     </div>
                 </li>

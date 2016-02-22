@@ -3,7 +3,7 @@
 
   angular
     .module('app.search')
-    .controller('search', Search);
+    .controller('Search', Search);
 
   Search.$inject = ['$rootScope','AuthRestangular'];
 

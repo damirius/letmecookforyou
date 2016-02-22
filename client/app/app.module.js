@@ -9,7 +9,9 @@
 
         'app.core',
         'app.navbar',
-        'app.dashboard'
+        'app.dashboard',
+        'app.search',
+        'app.profile'
     ]);
 
 })();
