@@ -42,7 +42,7 @@ class Event extends EntityRepository
             $q .= ' WHERE ' . implode(' AND ', $where);
         }
 
-        $q .= 'HAVING distance < :radius
+        $q .= ' HAVING distance < :radius
                 ORDER BY distance
                 LIMIT :offset , :limit';
 

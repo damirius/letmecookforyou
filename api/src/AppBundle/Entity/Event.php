@@ -117,6 +117,7 @@ class Event
      * @var int
      *
      * @ORM\Column(type="integer")
+     * @Serializer\Groups({"details"})
      */
     protected $whosePlace;
 
@@ -124,6 +125,7 @@ class Event
      * @var int
      *
      * @ORM\Column(type="integer")
+     * @Serializer\Groups({"details"})
      */
     protected $whoPays;
 

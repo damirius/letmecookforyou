@@ -1,0 +1,21 @@
+<div class="jumbotron">
+    <div class="row event-details">
+        <div class="col-xs-2 col-md-2">
+            <img src="http://placehold.it/170x180" alt="">
+        </div>
+        <div class="col-xs-8 col-md-8 info">
+            <h2 class="title">{{vm.event.meal_name }}</h2>
+            <p class="desc">{{vm.event.description }}</p>
+            <ul class="row">
+                <li ng-if="vm.isHost()" class="col-xs-1 col-md-1"><a ng-click="vm.attend()" href=""><span class="fa fa-check"></span> Attend</a></li>
+                <li class="col-xs-1 col-md-1"><a href="#website"><span class="fa fa-user"></span> {{vm.event.host.username}}</a></li>
+                <li class="col-xs-1 col-md-1"><span class="fa fa-clock-o"></span> {{vm.event.when | date : 'HH:mm'}}</li>
+                <li class="col-xs-1 col-md-1"><span class="fa fa-home"></span> {{vm.whose_place[vm.event.whose_place] }}</li>
+                <li class="col-xs-1 col-md-1"><span class="fa fa-money"></span> {{vm.who_pays[vm.event.who_pays] }}</li>
+                <li ng-if="vm.event.who_pays!=1" class="col-xs-1 col-md-1"><span class="fa fa-usd"></span> {{vm.event.cost_estimate }}</li>
+                <li class="col-xs-2 col-md-2"><span class="fa fa-map-marker"></span> Near {{ vm.event.city }}</li>
+                <li class="col-xs-4 col-md-4"><span class="fa fa-tags"></span> <span ng-repeat="tag in vm.event.tags">{{tag.name}} </span></li>
+            </ul>
+        </div>
+    </div>
+</div>

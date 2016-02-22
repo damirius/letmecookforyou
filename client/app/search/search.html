@@ -1,3 +1,104 @@
+<div class="jumbotron">
+    <form class="form-horizontal">
+        <fieldset>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="addressInput">Address</label>
+                <div class="col-md-4">
+                    <input ng-model="vm.location" id="addressInput" name="addressInput" type="search" placeholder="Your Address Here" class="form-control input-md">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="radiusSelect">Radius(km)</label>
+                <div class="col-md-4">
+                    <select ng-model="vm.radius" id="radiusSelect" name="radiusSelect" class="form-control">
+                        <option value="">Any Radius</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="250">250</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="dateFilter">Pick A Date</label>
+                <div class="col-md-4">
+                    <select ng-model="vm.time_interval" id="dateFilter" name="dateFilter" class="form-control">
+                        <option value="5">In Five Days</option>
+                        <option value="10">In Ten Days</option>
+                        <option value="20">In Twenty Days</option>
+                        <option value="30">In A Month</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="whosePlace">Whose Place</label>
+                <div class="col-md-4">
+                    <div class="radio">
+                        <label for="whosePlace-0">
+                            <input ng-model="vm.whose_place" type="radio" name="whosePlace" id="whosePlace-0" value="1" checked="checked">
+                            Your Place
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label for="whosePlace-1">
+                            <input ng-model="vm.whose_place" type="radio" name="whosePlace" id="whosePlace-1" value="2">
+                            Their Place
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label for="whosePlace-1">
+                            <input ng-model="vm.whose_place" type="radio" name="whosePlace" id="whosePlace-2" value="3">
+                            Other Place
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="whoPays">Who Pays</label>
+                <div class="col-md-4">
+                    <div class="radio">
+                        <label for="whoPays-0">
+                            <input ng-model="vm.who_pays" type="radio" name="whoPays" id="whoPays-0" value="1" checked="checked">
+                            I Pay
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label for="whoPays-1">
+                            <input ng-model="vm.who_pays" type="radio" name="whoPays" id="whoPays-1" value="2">
+                            You Pay
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label for="whoPays-2">
+                            <input ng-model="vm.who_pays" type="radio" name="whoPays" id="whoPays-2" value="3">
+                            We Split
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="tagInput">Pick A Tag</label>
+                <div class="col-md-4">
+                    <input ng-model="vm.tags" id="tagInput" name="tagInput" type="search" placeholder="Your Tag Here" class="form-control input-md">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="searchButton"></label>
+                <div class="col-md-4">
+                    <button ng-click="vm.submitSearch()" id="searchButton" name="searchButton" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+</div>
 <div class="container">
     <div class="row">
         <div class="[ col-xs-12 col-sm-offset-2 col-sm-8 ]">

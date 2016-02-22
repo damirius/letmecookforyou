@@ -44,7 +44,9 @@
 .event-list > li > img {
   width: 100%;
 }
-.event-list > li > .info {
+.event-list > li > .info,
+event-details > li > .info
+{
   padding-top: 5px;
   text-align: center;
 }
@@ -59,7 +61,8 @@
   margin: 0px;
 }
 .event-list > li > .info > ul,
-.event-list > li > .social > ul {
+.event-details > .info > ul
+{
   display: table;
   list-style: none;
   margin: 10px 0px 0px;
@@ -67,11 +70,14 @@
   width: 100%;
   text-align: center;
 }
-.event-list > li > .social > ul {
-  margin: 0px;
+.event-details > .info > ul
+{
+  text-align: left;
 }
+
 .event-list > li > .info > ul > li,
-.event-list > li > .social > ul > li {
+.event-details > .info > ul > li
+{
   display: table-cell;
   cursor: pointer;
   color: rgb(30, 30, 30);
@@ -79,23 +85,19 @@
   font-weight: 300;
   padding: 3px 0px;
 }
-.event-list > li > .info > ul > li > a {
+.event-list > li > .info > ul > li > a,
+.event-details > .info > ul > li > a
+{
   display: block;
   width: 100%;
   color: rgb(30, 30, 30);
   text-decoration: none;
 }
-.event-list > li > .social > ul > li {
-  padding: 0px;
+.event-details > .info > ul > li > a:hover
+{
+  color: rgb(0,125,0);
 }
-.event-list > li > .social > ul > li > a {
-  padding: 3px 0px;
-}
-.event-list > li > .info > ul > li:hover,
-.event-list > li > .social > ul > li:hover {
-  color: rgb(30, 30, 30);
-  background-color: rgb(200, 200, 200);
-}
+
 
 @media (min-width: 768px) {
   .event-list > li {
@@ -114,7 +116,9 @@
     width: 120px;
     float: left;
   }
-  .event-list > li > .info {
+  .event-list > li > .info,
+  .event-details > .info,
+  {
     background-color: rgb(245, 245, 245);
     overflow: hidden;
   }
@@ -125,39 +129,31 @@
     padding: 0px;
     margin: 0px;
   }
-  .event-list > li > .info {
+  .event-list > li > .info,
+  .event-details > .info
+  {
     position: relative;
     height: 120px;
     text-align: left;
     padding-right: 40px;
   }
   .event-list > li > .info > .title,
-  .event-list > li > .info > .desc {
+  .event-details > .info > .title,
+  .event-list > li > .info > .desc,
+  .event-details > .info > .desc
+  {
     padding: 0px 10px;
   }
-  .event-list > li > .info > ul {
+  .event-list > li > .info > ul
+  {
     position: absolute;
     left: 0px;
     bottom: 0px;
   }
-  .event-list > li > .social {
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    display: block;
-    width: 40px;
-  }
-  .event-list > li > .social > ul {
-    border-left: 1px solid rgb(230, 230, 230);
-  }
-  .event-list > li > .social > ul > li {
-    display: block;
-    padding: 0px;
-  }
-  .event-list > li > .social > ul > li > a {
-    display: block;
-    width: 40px;
-    padding: 10px 0px 9px;
+  .event-details > .info > ul
+  {
+    left: 0px;
+    bottom: 0px;
   }
 }
 
