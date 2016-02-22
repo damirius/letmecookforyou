@@ -5,9 +5,9 @@
     .module('app.profile')
     .controller('Profile', Profile);
 
-  Profile.$inject = ['$rootScope','User'];
+  Profile.$inject = ['User'];
 
-  function Profile($rootScope, User) {
+  function Profile(User) {
 
     /*jshint validthis: true */
     var vm = this;
