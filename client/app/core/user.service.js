@@ -5,19 +5,16 @@
     .module('app.core')
     .service('User', User);
 
-  User.$inject = ['AuthRestangular'];
+  User.$inject = ['AuthRestangular', 'Auth'];
 
-  function User(AuthRestangular) {
+  function User(AuthRestangular, Auth) {
       var scope = this;
 
-      scope.user = null;
-      scope.load = load;
+      scope.user = {};
       scope.get = get;
 
-      function load () {
-          AuthRestangular.one('me').get().then(function (user) {
-              scope.user = user;
-          })
+      if (Auth.isLoggedIn()) {
+          scope.user = AuthRestangular.one('me').get().$object;
       }
 
       function get() {
