@@ -33,9 +33,9 @@ class Event extends EntityRepository
             $where []= 'event.whose_place = :whosePlace';
         }
         if ($time) {
-            $where []= 'event.when BETWEEN NOW() AND DATE_ADD(CURDATE(), INTERVAL :time DAY)';
+            $where []= 'event.happening_at BETWEEN NOW() AND DATE_ADD(CURDATE(), INTERVAL :time DAY)';
         } else {
-            $where []= 'event.when > NOW()';
+            $where []= 'event.happening_at > NOW()';
         }
 
         if (count($where)) {
@@ -99,9 +99,9 @@ class Event extends EntityRepository
             $where []= 'event.whose_place = :whosePlace';
         }
         if ($time) {
-            $where []= 'event.when BETWEEN NOW() AND DATE_ADD(CURDATE(), INTERVAL :time DAY)';
+            $where []= 'event.happening_at BETWEEN NOW() AND DATE_ADD(CURDATE(), INTERVAL :time DAY)';
         } else {
-            $where []= 'event.when > NOW()';
+            $where []= 'event.happening_at > NOW()';
         }
 
         if (count($where)) {

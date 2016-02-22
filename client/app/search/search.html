@@ -110,7 +110,7 @@
                         <span class="year">{{event.when | date : 'yyyy'}}</span>
                         <span class="time">{{event.when | date : 'HH'}}</span>
                     </time>
-                    <img alt="Independence Day" src="https://farm4.staticflickr.com/3100/2693171833_3545fb852c_q.jpg" />
+                    <img alt="{{event.host.username}}" ng-src="/api/uploads/profile/{{event.host.profile_picture}}" />
                     <div class="info">
                         <h2 class="title">{{event.meal_name }}</h2>
                         <p class="desc">{{event.description }}</p>

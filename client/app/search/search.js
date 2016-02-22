@@ -5,14 +5,15 @@
     .module('app.search')
     .controller('Search', Search);
 
-  Search.$inject = ['$rootScope','AuthRestangular'];
+  Search.$inject = ['$rootScope','AuthRestangular', 'User'];
 
-  function Search($rootScope, AuthRestangular) {
+  function Search($rootScope, AuthRestangular, User) {
 
     /*jshint validthis: true */
     var vm = this;
 
     vm.events = [];
+    vm.location = 'New York City, USA';
 
     vm.submitSearch = function() {
         var params = {
