@@ -6,18 +6,18 @@
         .directive('navbar', navbar)
         .controller('NavbarController', NavbarController);
 
-    navbar.$inject=['Auth'];
-    NavbarController.$inject = ['$scope','Auth'];
+    NavbarController.$inject = ['Auth','User'];
 
-    function NavbarController ($scope,Auth) {
+    function NavbarController (Auth, User) {
         var vm = this;
-        vm.username = 'demo2';
-        vm.password = 'demo2';
-        vm.login = function()
-        {
-          Auth.login(vm.username,vm.password);
+        vm.username = 'demo';
+        vm.password = 'demo';
+        vm.login = function() {
+            Auth.login(vm.username,vm.password);
+            vm.user = User.get();
         }
         vm.isLoggedIn = Auth.isLoggedIn;
+        vm.user = User.get();
     }
 
     function navbar () {

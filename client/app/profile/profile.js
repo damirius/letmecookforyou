@@ -5,17 +5,14 @@
     .module('app.profile')
     .controller('Profile', Profile);
 
-  Profile.$inject = ['$rootScope','AuthRestangular'];
+  Profile.$inject = ['$rootScope','User'];
 
-  function Profile($rootScope, AuthRestangular) {
+  function Profile($rootScope, User) {
 
     /*jshint validthis: true */
     var vm = this;
 
     vm.events = [];
-    AuthRestangular.one('me').get().then(function (user) {
-
-      vm.user = user;
-    })
+    vm.user = User.get();
   }
 })();
