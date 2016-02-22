@@ -3,13 +3,14 @@
 namespace AppBundle\Repository;
 
 use AppBundle\Location\LocationSearchParameters;
+use AppBundle\Entity\User as UserEntity;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query\ResultSetMapping;
 
 class Event extends EntityRepository
 {
 
-    public function searchWithLocation(LocationSearchParameters $location, $tags, $whoPays, $whosePlace, $limit, $offset)
+    public function searchWithLocation(LocationSearchParameters $location, $time, $tags, $whoPays, $whosePlace, $limit, $offset)
     {
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('id', 'id', 'integer');
@@ -30,6 +31,11 @@ class Event extends EntityRepository
         }
         if ($whosePlace) {
             $where []= 'event.whose_place = :whosePlace';
+        }
+        if ($time) {
+            $where []= 'event.when BETWEEN NOW() AND DATE_ADD(CURDATE(), INTERVAL :time DAY)';
+        } else {
+            $where []= 'event.when > NOW()';
         }
 
         if (count($where)) {
@@ -57,6 +63,9 @@ class Event extends EntityRepository
         if ($tags) {
             $query->setParameter('tags', $tags);
         }
+        if ($time) {
+            $query->setParameter('time', $time);
+        }
 
         $result = $query->getResult();
 
@@ -67,10 +76,10 @@ class Event extends EntityRepository
 
         return $this->findBy([
             'id' => $ids
-        ]);
+        ], ['when' => 'ASC']);
     }
 
-    public function search($tags, $whoPays, $whosePlace, $limit, $offset)
+    public function search($time, $tags, $whoPays, $whosePlace, $limit, $offset)
     {
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('id', 'id', 'integer');
@@ -88,6 +97,11 @@ class Event extends EntityRepository
         }
         if ($whosePlace) {
             $where []= 'event.whose_place = :whosePlace';
+        }
+        if ($time) {
+            $where []= 'event.when BETWEEN NOW() AND DATE_ADD(CURDATE(), INTERVAL :time DAY)';
+        } else {
+            $where []= 'event.when > NOW()';
         }
 
         if (count($where)) {
@@ -109,6 +123,9 @@ class Event extends EntityRepository
         if ($tags) {
             $query->setParameter('tags', $tags);
         }
+        if ($time) {
+            $query->setParameter('time', $time);
+        }
 
         $result = $query->getResult();
 
@@ -119,6 +136,24 @@ class Event extends EntityRepository
 
         return $this->findBy([
             'id' => $ids
-        ]);
+        ], ['when' => 'ASC']);
+    }
+
+    public function findEventsHostedBy(UserEntity $user) {
+        $dql = "SELECT e FROM AppBundle:Event e WHERE e.host = :user ORDER BY e.when ASC";
+
+        return $this->getEntityManager()->createQuery($dql)->setParameter('user', $user)->getResult();
+    }
+
+    public function findEventsAppliedBy(UserEntity $user) {
+        $dql = "SELECT e FROM AppBundle:Event e JOIN e.applications a WHERE a.applicant = :user ORDER BY e.when ASC";
+
+        return $this->getEntityManager()->createQuery($dql)->setParameter('user', $user)->getResult();
+    }
+
+    public function findEventsAttending(UserEntity $user) {
+        $dql = "SELECT e FROM AppBundle:Event e JOIN e.applications a WHERE a.applicant = :user AND a.hostConfirmed = true AND a.guestConfirmed = true ORDER BY e.when ASC";
+
+        return $this->getEntityManager()->createQuery($dql)->setParameter('user', $user)->getResult();
     }
 }

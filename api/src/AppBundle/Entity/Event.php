@@ -139,7 +139,7 @@ class Event
      * @var EventApplication[]
      *
      * @ORM\OneToMany(targetEntity="EventApplication", mappedBy="event")
-     * @Serializer\Groups({"owner"})
+     * @Serializer\Groups({"owner", "applicant"})
      */
     protected $applications;
 

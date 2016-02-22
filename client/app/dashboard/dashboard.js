@@ -13,9 +13,10 @@
         var vm = this;
 
         vm.events = [];
-        AuthRestangular.all('events').getList().then(function (events) {
 
+        AuthRestangular.all('events').getList().then(function (events) {
             vm.events = events;
         })
+
     }
 })();

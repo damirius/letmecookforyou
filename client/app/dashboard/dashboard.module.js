@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('app.dashboard', []);
+    angular.module('app.dashboard', ['app.event']);
 
     angular.module('app.dashboard').config(function($stateProvider) {
         $stateProvider

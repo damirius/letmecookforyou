@@ -34,7 +34,7 @@ class EventController extends FOSRestController
         $offset = $request->query->getInt('offset', 0);
         $limit = $request->query->getInt('limit', 10);
 
-        $events = $this->getDoctrine()->getRepository('AppBundle:Event')->findBy([], ['createdAt' => 'DESC'], $limit, $offset);
+        $events = $this->getDoctrine()->getRepository('AppBundle:Event')->findBy([], ['when' => 'ASC'], $limit, $offset);
 
         $view->setData($events);
 
@@ -54,6 +54,7 @@ class EventController extends FOSRestController
         $limit = $request->query->getInt('limit', 10);
         $whoPays = $request->query->getInt('who_pays', null);
         $whosePlace = $request->query->getInt('whose_place', null);
+        $time = $request->query->get('time', null);
         $tags = $request->query->get('tags', null);
         if ($tags) {
             $tags = explode(',', $tags);
@@ -71,9 +72,9 @@ class EventController extends FOSRestController
             $locationParams->setLongitude($coordinates['lng']);
             $locationParams->setRadius($request->query->get('radius', 100));
             $locationParams->setUnit($request->query->get('unit') == 'miles' ? LocationSearchParameters::UNIT_MILE : LocationSearchParameters::UNIT_KM);
-            $events = $this->getDoctrine()->getRepository('AppBundle:Event')->searchWithLocation($locationParams, $tags, $whoPays, $whosePlace, $limit, $offset);
+            $events = $this->getDoctrine()->getRepository('AppBundle:Event')->searchWithLocation($locationParams, $time, $tags, $whoPays, $whosePlace, $limit, $offset);
         } else {
-            $events = $this->getDoctrine()->getRepository('AppBundle:Event')->search($tags, $whoPays, $whosePlace, $limit, $offset);
+            $events = $this->getDoctrine()->getRepository('AppBundle:Event')->search($time, $tags, $whoPays, $whosePlace, $limit, $offset);
         }
 
 
@@ -205,12 +206,40 @@ class EventController extends FOSRestController
      */
     public function getEventsHostingAction()
     {
-        $view = $this->view()->setSerializationContext(SerializationContext::create()->setGroups(['details', 'owner']));
+        $view = $this->view()->setSerializationContext(SerializationContext::create()->setGroups(['list', 'owner']));
 
         $user = $this->getUser();
 
         if ($user instanceof User) {
-            $view->setData($user->getEventsHosting());
+            $view->setData($this->getDoctrine()->getRepository('AppBundle:Event')->findEventsHostedBy($user));
+        } else {
+            $view->setStatusCode(Response::HTTP_UNAUTHORIZED);
+        }
+
+        return $view;
+    }
+
+    /**
+     * @return View
+     *
+     * @Rest\Get("/events/applied.{_format}")
+     */
+    public function getEventsAppliedAction()
+    {
+        $view = $this->view()->setSerializationContext(SerializationContext::create()->setGroups(['list', 'applicant']));
+
+        $user = $this->getUser();
+
+        if ($user instanceof User) {
+            $events = $this->getDoctrine()->getRepository('AppBundle:Event')->findEventsAppliedBy($user);
+            foreach ($events as $event) {
+                foreach ($event->getApplications() as $application) {
+                    if ($application->getApplicant() != $user) {
+                        $event->removeApplication($application);
+                    }
+                }
+            }
+            $view->setData($events);
         } else {
             $view->setStatusCode(Response::HTTP_UNAUTHORIZED);
         }
@@ -225,12 +254,20 @@ class EventController extends FOSRestController
      */
     public function getEventsAttendingAction()
     {
-        $view = $this->view()->setSerializationContext(SerializationContext::create()->setGroups(['details', 'owner']));
+        $view = $this->view()->setSerializationContext(SerializationContext::create()->setGroups(['list', 'applicant']));
 
         $user = $this->getUser();
 
         if ($user instanceof User) {
-            $view->setData($user->getEventsAttending());
+            $events = $this->getDoctrine()->getRepository('AppBundle:Event')->findEventsAttending($user);
+            foreach ($events as $event) {
+                foreach ($event->getApplications() as $application) {
+                    if ($application->getApplicant() != $user) {
+                        $event->removeApplication($application);
+                    }
+                }
+            }
+            $view->setData($events);
         } else {
             $view->setStatusCode(Response::HTTP_UNAUTHORIZED);
         }
@@ -371,4 +408,43 @@ class EventController extends FOSRestController
         return $view;
     }
 
+    /**
+     * @param $event_id
+     * @param $application_id
+     * @return View
+     * @Rest\Get("/events/{event_id}/applications/{application_id}/confirm.{_format}")
+     */
+    public function getEventApplicationMessageThreadAction($event_id, $application_id)
+    {
+        $view = $this->view();
+
+        $user = $this->getUser();
+
+        if ($user instanceof User
+            and filter_var($event_id, FILTER_VALIDATE_INT) !== false
+            and filter_var($application_id, FILTER_VALIDATE_INT) !== false) {
+
+            $application = $this->getDoctrine()->getRepository('AppBundle:EventApplication')->findOneBy([
+                'id' =>$application_id,
+                'event' => $this->getDoctrine()->getEntityManager()->getReference('AppBundle\Entity\Event', $event_id)
+            ]);
+
+            if ($application instanceof EventApplication) {
+                if ($user == $application->getApplicant()) {
+                    $application->setGuestConfirmed(true);
+                } elseif ($user == $application->getEvent()->getHost()) {
+                    $application->setHostConfirmed(true);
+                } else {
+                    $view->setStatusCode(Response::HTTP_UNAUTHORIZED);
+                }
+                $this->getDoctrine()->getManager()->flush();
+            } else {
+                $view->setStatusCode(Response::HTTP_NOT_FOUND);
+            }
+        } else {
+            $view->setStatusCode(Response::HTTP_UNAUTHORIZED);
+        }
+
+        return $view;
+    }
 }

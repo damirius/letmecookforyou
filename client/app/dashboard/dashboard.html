@@ -1,12 +1,9 @@
-    <div class="col-md-6 col-md-4" data-ng-repeat="event in vm.events">
-        <div class="thumbnail">
-            <img data-ng-if="event.thumbnail" src="{{ event.thumbnail }}" alt="{{ event.meal_name }}">
+    <div class="col-md-6 col-md-2" data-ng-repeat="event in vm.events">
+        <div class="thumbnail" ui-sref="event({eventId: event.id})">
+            <img data-ng-if="event.host.profile_picture" src="/api/uploads/profile/{{ event.host.profile_picture }}" alt="{{ event.meal_name }}">
             <div class="caption">
                 <h3>{{ event.meal_name }}</h3>
                 <p>{{ event.description }}</p>
-                <p>
-                    <a href="#" class="button button-success" role="button">GO!</a>
-                </p>
             </div>
         </div>
     </div>
