@@ -15,8 +15,14 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-        api_anonymous:
+        api_anonymous_events:
             pattern: ^/events(/\d+|/search)?$
+            methods: [GET]
+            stateless: true
+            anonymous: true
+
+        api_anonymous_countries:
+            pattern: ^/countries$
             methods: [GET]
             stateless: true
             anonymous: true

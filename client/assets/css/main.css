@@ -162,3 +162,15 @@ small.user-location {
   line-height: 1.428571429;
   color: #999;
 }
+
+.preview-thumb {
+  width: 300px;
+  margin-top: 10px;
+}
+
+.carousel-event .carousel-inner {
+  height: 400px;
+}
+.carousel-user .carousel-inner {
+  height: 300px;
+}
