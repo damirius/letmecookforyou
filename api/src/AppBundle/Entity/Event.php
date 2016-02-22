@@ -132,7 +132,7 @@ class Event
     /**
      * @var \DateTime
      *
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(name="happening_at", type="datetime")
      * @Serializer\Groups({"list", "details"})
      */
     protected $when;

@@ -5,9 +5,9 @@
         .module('app.core')
         .service('Auth', Auth);
 
-    Auth.$inject = ['Restangular', '$localStorage', '$window'];
+    Auth.$inject = ['Restangular', '$localStorage'];
 
-    function Auth(Restangular, $localStorage, $window) {
+    function Auth(Restangular, $localStorage) {
 
         this.isLoggedIn = isLoggedIn;
         this.login = login;
@@ -21,7 +21,7 @@
 
             return Restangular.oneUrl('apiToken', '/api/login').post(null, params).then(function (data) {
                 $localStorage.authToken = data.token;
-                $window.location.reload();
+                Restangular.configuration.defaultHeaders.Authorization = "Bearer " + data.token;
             });
         };
 
