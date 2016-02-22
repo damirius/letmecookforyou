@@ -7,6 +7,7 @@
     "jquery": "^2.2.0",
     "bootstrap": "^3.3.6",
     "restangular": "~1.5.2",
-    "ngstorage": "~0.3.10"
+    "ngstorage": "~0.3.10",
+    "ng-file-upload": "^12.0.1"
   }
 }

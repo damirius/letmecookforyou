@@ -6,6 +6,7 @@
         'ui.router.title',
         'restangular',
         'ngStorage',
+        'ngFileUpload',
 
         'app.core',
         'app.navbar',

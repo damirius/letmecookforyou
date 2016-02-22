@@ -3,10 +3,10 @@
         <div class="well well-sm">
             <div class="row">
                 <div class="col-sm-6 col-md-4">
-                    <img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" />
+                    <img src="/api/uploads/profile/{{vm.user.profile_picture}}" alt="" class="img-rounded img-responsive" />
                 </div>
                 <div class="col-sm-6 col-md-8">
-                    <h4>{{vm.user().username}}</h4>
+                    <h4>{{vm.user.username}}</h4>
                     <small class="user-location"><cite title="{{vm.user.city}},{{vm.user.country.name}}">{{vm.user.city}},{{vm.user.country.name}} <i class="glyphicon glyphicon-map-marker">
                     </i></cite></small>
                     <p>
@@ -22,8 +22,8 @@
 
                         <!-- Wrapper for slides -->
                         <div class="carousel-inner" role="listbox">
-                            <div class="item active">
-                                <img src="http://placehold.it/600x500" alt="...">
+                            <div class="item" ng-class="{active: picture.id == 1}" data-ng-repeat="picture in vm.gallery">
+                                <img src="/api/uploads/event/{{picture.name}}" alt="...">
                                 <div class="carousel-caption">
                                     ...
                                 </div>
@@ -43,5 +43,33 @@
                 </div>
             </div>
         </div>
+    </div><div class="col-xs-12 col-sm-6 col-md-6">
+    <ul class="event-list">
+        <li ng-repeat="event in vm.events">
+            <time datetime="{{event.when | date : 'd-MMM-yyy'}}"  data-ui-sref="event({eventId: event.id})">
+                <span class="day">{{event.when | date : 'd'}}</span>
+                <span class="month">{{event.when | date : 'MMM'}}</span>
+                <span class="year">{{event.when | date : 'yyyy'}}</span>
+                <span class="time">{{event.when | date : 'HH'}}</span>
+            </time>
+            <div class="info">
+                <h2 class="title" data-ui-sref="event({eventId: event.id})">{{event.meal_name }}</h2>
+                <p class="desc">{{event.description }}</p>
+                <ul>
+                    <li style="width:25%;"><a href="#website"><span class="fa fa-user"></span> {{event.host.username}}</a></li>
+                    <li style="width:25%;"><span class="fa fa-clock-o"></span> {{event.when | date : 'HH:mm'}}</li>
+                    <li style="width:25%;"><span class="fa fa-map-marker"></span> Near {{ event.city }}</li>
+                    <li style="width:25%;"><span class="fa fa-tags"></span> <span ng-repeat="tag in event.tags">{{tag.name}} </span></li>
+                </ul>
+            </div>
+        </li>
+    </ul>
     </div>
 </div>
+<form name="form">
+    Single Image with validations
+    <div class="button" ngf-select ng-model="vm.file" name="file" ngf-pattern="'image/*'"
+         ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100"
+         ngf-resize="{width: 100, height: 100}">Select</div>
+    <button type="submit" ng-click="vm.submit()">submit</button>
+</form>

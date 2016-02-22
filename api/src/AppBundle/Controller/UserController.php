@@ -38,7 +38,7 @@ class UserController extends FOSRestController
     /**
      * @param Request $request
      * @return View
-     * @Rest\Put("/me/profile-picture.{_format}")
+     * @Rest\Post("/me/profile-picture.{_format}")
      */
     public function setProfilePictureAction(Request $request)
     {
@@ -47,21 +47,19 @@ class UserController extends FOSRestController
         $filesystem = $this->get('knp_gaufrette.filesystem_map')->get('profile_pictures');
         $content = $request->getContent();
 
+
         $user = $this->getUser();
 
         if ($user instanceof User) {
             $oldPicture = $user->getProfilePicture();
 
-            $file = tmpfile();
-            $path = stream_get_meta_data($file)['uri'];
-            file_put_contents($path, $content);
-            $uploadedFile = new UploadedFile($path, $path, null, null, null, true);
-
+            /** @var UploadedFile $uploadedFile */
+            $uploadedFile = $request->files->get('file');
             $uuid = Uuid::uuid4()->toString();
             $ext = $uploadedFile->guessExtension();
             $filename = "{$uuid}.{$ext}";
 
-            if ($filesystem->write($filename, $content) > 0) {
+            if ($filesystem->write($filename, file_get_contents($uploadedFile->getRealPath())) > 0) {
                 $user->setProfilePicture($filename);
                 $this->getDoctrine()->getManager()->flush();
 

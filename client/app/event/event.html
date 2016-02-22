@@ -1,7 +1,7 @@
 <div class="jumbotron">
     <div class="row event-details">
         <div class="col-xs-2 col-md-2">
-            <img src="http://placehold.it/170x180" alt="">
+            <img src="/api/uploads/profile/{{vm.event.host.profile_picture}}" alt="">
         </div>
         <div class="col-xs-8 col-md-8 info">
             <h2 class="title">{{vm.event.meal_name }}</h2>
@@ -19,3 +19,10 @@
         </div>
     </div>
 </div>
+<form name="form">
+    Single Image with validations
+    <div class="button" ngf-select ng-model="vm.file" name="file" ngf-pattern="'image/*'"
+         ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100"
+         ngf-resize="{width: 800, height: 600}">Select</div>
+    <button type="submit" ng-click="vm.submit()">submit</button>
+</form>

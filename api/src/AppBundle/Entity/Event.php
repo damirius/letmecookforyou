@@ -101,7 +101,7 @@ class Event
      * @var EventPicture[]
      *
      * @ORM\OneToMany(targetEntity="EventPicture", mappedBy="event")
-     * @Serializer\Groups({"details"})
+     * @Serializer\Groups({"list","details"})
      */
     protected $gallery;
 

@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  angular.module('app.profile', []);
+  angular.module('app.profile', ['app.event']);
 
   angular.module('app.profile').config(function($stateProvider) {
     $stateProvider

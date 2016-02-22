@@ -17,7 +17,10 @@
           scope.user = AuthRestangular.one('me').get().$object;
       }
 
-      function get() {
+      function get(refresh) {
+          if (refresh) {
+              scope.user = AuthRestangular.one('me').get().$object;
+          }
           return scope.user;
       }
   }

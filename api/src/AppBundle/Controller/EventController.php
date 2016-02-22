@@ -367,7 +367,6 @@ class EventController extends FOSRestController
         $view = $this->view();
 
         $filesystem = $this->get('knp_gaufrette.filesystem_map')->get('event_pictures');
-        $content = $request->getContent();
 
         $user = $this->getUser();
 
@@ -376,16 +375,14 @@ class EventController extends FOSRestController
 
             if ($event) {
                 if ($event->getHost() == $user) {
-                    $file = tmpfile();
-                    $path = stream_get_meta_data($file)['uri'];
-                    file_put_contents($path, $content);
-                    $uploadedFile = new UploadedFile($path, $path, null, null, null, true);
+                    /** @var UploadedFile $uploadedFile */
+                    $uploadedFile = $request->files->get('file');
 
                     $uuid = Uuid::uuid4()->toString();
                     $ext = $uploadedFile->guessExtension();
                     $filename = "{$uuid}.{$ext}";
 
-                    if ($filesystem->write($filename, $content) > 0) {
+                    if ($filesystem->write($filename, file_get_contents($uploadedFile->getRealPath())) > 0) {
                         $picture = new EventPicture();
                         $picture->setEvent($event);
                         $picture->setName($filename);
